@@ -202,6 +202,7 @@ require("lazy").setup({
 
     -- LSP manager
     { "mason-org/mason.nvim", opts = {} },
+    { "numToStr/Comment.nvim", opts = {} },
 })
 
 require("nvim-tree").setup({
@@ -213,5 +214,14 @@ require("nvim-tree").setup({
             ".DS_Store",
             ".git",
         },
+    },
+})
+
+require("Comment").setup({
+    toggler = {
+        ---Line-comment toggle keymap
+        line = '<leader>/',
+        ---Block-comment toggle keymap
+        block = 'gbc',
     },
 })

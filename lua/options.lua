@@ -28,3 +28,8 @@ vim.opt.titlestring = "%<%F%=%l/%L - nvim" -- what the title of the window will 
 
 -- Use system clipboard
 vim.opt.clipboard = "unnamedplus"
+
+
+-- Allow recursive Searching
+vim.opt.path = vim.opt.path + "**"
+vim.opt.path = vim.opt.path + "~/.config/nvim/"
