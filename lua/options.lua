@@ -32,4 +32,3 @@ vim.opt.clipboard = "unnamedplus"
 
 -- Allow recursive Searching
 vim.opt.path = vim.opt.path + "**"
-vim.opt.path = vim.opt.path + "~/.config/nvim/"
