@@ -8,6 +8,17 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Returns Darwin on OSX, may fail on windows
+function os.capture(cmd)
+  local f = assert(io.popen(cmd, 'r'))
+  local s = assert(f:read('*a'))
+  f:close()
+  s = string.gsub(s, '^%s+', '')
+  s = string.gsub(s, '%s+$', '')
+  s = string.gsub(s, '[\n\r]+', ' ')
+  return s
+end
+
 require("lazy").setup({
     -- Colorscheme
     { "folke/tokyonight.nvim", lazy = false, priority = 1000,
@@ -18,7 +29,9 @@ require("lazy").setup({
     -- Syntax highlighting
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
         config = function()
-            require("nvim-treesitter.config").setup({
+            local conf = 'nvim-treesitter.config'
+            if os.capture 'uname' == 'Darwin' then conf = 'nvim-treesitter.configs' end
+            require(conf).setup({
                 highlight = { enable = true },
                 indent = { enable = true }
             })
