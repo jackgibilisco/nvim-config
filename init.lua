@@ -116,7 +116,7 @@ local cmpopts = {
         providers = {
             path = {
                 opts = {
-                    get_cwd = function() return vim.fn.cetcwd() end,
+                    get_cwd = function() return vim.fn.getcwd() end,
                 }
             }
         }
