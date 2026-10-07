@@ -81,6 +81,8 @@ require('nvim-tree').setup({
     },
 })
 
+vim.g.mapleader = " "
+
 -- Comment
 require('Comment').setup({
     toggler = {
@@ -88,7 +90,7 @@ require('Comment').setup({
     },
     opleader = {
         line = '<leader>/',
-    }
+    },
 })
 
 -- cmp
@@ -116,7 +118,7 @@ local cmpopts = {
         providers = {
             path = {
                 opts = {
-                    get_cwd = function() return vim.fn.cetcwd() end,
+                    get_cwd = function() return vim.fn.getcwd() end,
                 }
             }
         }
@@ -155,8 +157,6 @@ vim.keymap.set("i", "<M-BS>", '<esc>"_ciw', opts)
 vim.keymap.set("n", "H", "^", opts)
 vim.keymap.set("n", "L", "$", opts)
 
--- Leader key and mapping helper
-vim.g.mapleader = " " -- leader = space
 -- Keybinds
 vim.keymap.set("n", "q", "<C-r>", opts) -- redo
 vim.keymap.set("n", "<leader>w", ":w<CR><C-L>", opts) -- save
