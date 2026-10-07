@@ -45,7 +45,8 @@ vim.pack.add({
     gh('saghen/blink.lib'),
     gh('saghen/blink.cmp'),
     gh('jake-stewart/multicursor.nvim'),
-    gh('numToStr/Comment.nvim')
+    gh('numToStr/Comment.nvim'),
+    gh('neovim/nvim-lspconfig')
 })
 
 -- -------- Plugin Config ----------
@@ -140,6 +141,18 @@ local cmpopts = {
 }
 cmp.setup(cmpopts)
 
+-- LSP
+vim.lsp.config('*', {
+    capabilities = cmp.get_lsp_capabilities(),
+})
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = { diagnostics = { globals = { 'vim' } } },
+    },
+})
+vim.lsp.enable({ 'lua_ls', 'clangd', 'pyright' })
+vim.diagnostic.enable(false)
+
 -- -------------------------
 --         Keybinds
 -- -------------------------
@@ -160,6 +173,9 @@ vim.keymap.set("n", "L", "$", opts)
 -- Keybinds
 vim.keymap.set("n", "q", "<C-r>", opts) -- redo
 vim.keymap.set("n", "<leader>w", ":w<CR><C-L>", opts) -- save
+vim.keymap.set("n", "<C-i>", "<C-o>", opts) -- jump back
+vim.keymap.set("n", "<Tab>", "<C-o>", opts) -- jump back
+vim.keymap.set("n", "<C-o>", "<C-i>", opts) -- jump forward
 vim.keymap.set("n", "@", "!", opts)
 vim.keymap.set("n", "!", ":!", opts)
 vim.keymap.set("n", "<leader>g", ":find ", opts)
@@ -203,6 +219,10 @@ vim.keymap.set("v", "<", "<gv", opts)
 -- nvim tree
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = "Toggle file tree" })
 vim.keymap.set('n', '<leader>r', ':NvimTreeFindFile<CR>', { desc = "Toggle file tree" })
+
+-- lsp (also built in: K hover, grn rename, gra action, grr references)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "go to definition" })
+vim.keymap.set('n', '<leader>o', ':LspClangdSwitchSourceHeader<CR>', opts)
 
 -- telescope
 local telescope = require('telescope.builtin')
